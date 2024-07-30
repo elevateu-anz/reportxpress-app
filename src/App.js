@@ -5,58 +5,93 @@ import Footer from './components/Footer';
 import jsPDF from 'jspdf';
 import { utils, writeFile } from 'xlsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import * as XLSX from 'xlsx';
+import autoTable from 'jspdf-autotable';
+
 
 const App = () => {
   const [report, setReport] = useState(null);
+  var jsonData={};
 
   const generateReport = async (inputData) => {
-    try {
-      // Placeholder API endpoint
-      const response = await fetch(' ', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ input: inputData }),
+      console.log(inputData);
+      const response = await fetch('https://elevatu.pythonanywhere.com/?input=' + inputData)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(text => {
+        text = text.replace(/'/g, '"');
+        jsonData = JSON.parse(text);
+        previewReport(jsonData)
+      })
+      .catch(error => {
+        console.error('There was a problem in generating report.', error);
       });
-
-      if (response.ok) {
-        const result = await response.json();
-        setReport(result.report);
-      } else {
-        console.error('Error generating report:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error generating report:', error);
-    }
   };
 
   const previewReport = () => {
-    if (report) {
-      alert(`Previewing report: ${report}`);
+    const doc = new jsPDF();
+    const columns = Object.keys(jsonData[0]).map(key => ({ header: key, dataKey: key }));
+    const rows = jsonData.map(item => {
+      const row = {};
+      Object.keys(item).forEach(key => {
+          row[key] = item[key];
+      });
+      return row;
+    });
+    autoTable(doc, {
+      head: [columns.map(col => col.header)],
+      body: rows,
+      columns,
+    });
+    const pdfBlob = doc.output('blob');
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    const popup = window.open(pdfUrl, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    if (popup) {
+        popup.document.write('<html><head><title>Report Preview</title></head><body>');
+        popup.document.write('<iframe src="' + pdfUrl + '" frameborder="0" style="width:100%;height:100%;"></iframe>');
+        popup.document.write('</body></html>');
+        popup.document.close(); // Important for IE
     } else {
-      alert('Please generate a report first.');
+        alert('Popup blocked. Please allow popups for this site.');
     }
   };
 
+  const formatDate = (date) => {
+    return date.toISOString().replace(/[-:.T]/g, '_').split('_')[0] + '_' + date.toTimeString().split(' ')[0].replace(/:/g, '_');
+  };
+  const now = new Date();
+  const formattedDate = formatDate(now);
+
   const exportAsPDF = () => {
-    if (report) {
-      const doc = new jsPDF();
-      doc.text(report, 10, 10);
-      doc.save('report.pdf');
-    } else {
-      alert('Please generate a report first.');
-    }
+    const doc = new jsPDF();
+    //doc.text('Report', 10, 10);
+    const columns = Object.keys(jsonData[0]).map(key => ({ header: key, dataKey: key }));
+    const rows = jsonData.map(item => {
+      const row = {};
+      Object.keys(item).forEach(key => {
+          row[key] = item[key];
+      });
+      return row;
+    });
+    autoTable(doc, {
+      head: [columns.map(col => col.header)],
+      body: rows,
+      columns,
+    });
+
+    doc.save('report' + formattedDate + '.pdf');
   };
 
   const exportAsExcel = () => {
-    if (report) {
-      const worksheet = utils.json_to_sheet([{ Report: report }]);
-      const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
-      writeFile(workbook, 'report.xlsx');
-    } else {
-      alert('Please generate a report first.');
-    }
+    const ws = XLSX.utils.json_to_sheet(jsonData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, 'report' + formattedDate + '.xlsx');
   };
 
   return (
