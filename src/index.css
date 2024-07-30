@@ -8,6 +8,53 @@ body {
   background-color: #AAD7D9;
 }
 
+.top-strip {
+  background-color: #0056b3;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.content {
+  margin-top: 60px;
+  padding: 20px;
+}
+
+.stylish-heading {
+  font-size: 3rem;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  color: #ffffff;
+  background: linear-gradient(45deg, #f0ce39, #2d99c4e8);
+  padding: 20px; 
+  border-radius: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  margin: 50px auto;
+  width: fit-content;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.stylish-heading:hover {
+  transform: scale(1.05);
+}
+
+.sub-heading {
+  font-size: large;
+}
+
+.lable-text {
+  padding-top: 2%;
+  padding-bottom: 2%;
+  font-size: large;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -21,16 +68,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
-}
-
-textarea {
-  font-size: 16px;
-  padding: 8px;
-  margin-bottom: 20px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  margin-top: 200px;
 }
 
 button {
@@ -43,4 +81,152 @@ button {
 
 button:hover {
   opacity: 0.8;
+}
+
+.text-box-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.text-area {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 16px;
+  padding-right: 50px;
+  border: 1px solid #ddd;
+  border-radius: 24px;
+  background-color: whitesmoke;
+  color: #333;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  resize: none;
+  overflow: hidden;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.text-area:focus {
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+.text-area::placeholder {
+  color: #999;
+}
+
+.right-arrow-btn {
+  position: absolute;
+  top: 85%;
+  right: 2px;
+  transform: translateY(-50%);
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+  z-index: 1;
+}
+
+.right-arrow-btn:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.export-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ff7b00;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  text-decoration: none;
+  visibility: hidden;
+}
+
+.export-button:hover {
+  background-color: #ff5100;
+}
+
+.export-button:active {
+  transform: scale(0.98);
+}
+
+.export-button .icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.export-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff;
+}
+
+.excel-button {
+  background-color: #2b9e2b;
+}
+
+.excel-button:hover {
+  background-color: #1e7e1e;
+}
+
+.excel-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #2b9e2b;
+}
+
+.preview-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  visibility: hidden;
+}
+
+.preview-button:hover {
+  background-color: #0056b3;
+}
+
+.preview-button:active {
+  transform: scale(0.98);
+}
+
+.preview-button .icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.preview-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff;
+}
+
+.button-seperator {
+  padding: 5px;
 }

@@ -26,6 +26,12 @@ const App = () => {
         text = text.replace(/'/g, '"');
         jsonData = JSON.parse(text);
         previewReport(jsonData)
+        const btn_preview = document.getElementById('btn_preview');
+        const btn_pdf = document.getElementById('btn_pdf');
+        const btn_xls = document.getElementById('btn_xls');
+        btn_preview.style.visibility='visible';
+        btn_pdf.style.visibility='visible';
+        btn_xls.style.visibility='visible';
       })
       .catch(error => {
         console.error('There was a problem in generating report.', error);
@@ -68,7 +74,6 @@ const App = () => {
 
   const exportAsPDF = () => {
     const doc = new jsPDF();
-    //doc.text('Report', 10, 10);
     const columns = Object.keys(jsonData[0]).map(key => ({ header: key, dataKey: key }));
     const rows = jsonData.map(item => {
       const row = {};
@@ -90,14 +95,16 @@ const App = () => {
     const ws = XLSX.utils.json_to_sheet(jsonData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
     XLSX.writeFile(wb, 'report' + formattedDate + '.xlsx');
   };
 
   return (
     <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: '#AAD7D9' }}>
+      <div class="top-strip">
+            <h1 class="stylish-heading">ReportXpress</h1>
+            <p class='sub-heading'>Intelligent Self Service Resporting Tool</p>
+       </div>
       <div className="container text-center py-5">
-        <h1>ReportXpress</h1>
         <UserInputForm
           onGenerate={generateReport}
           onPreview={previewReport}
