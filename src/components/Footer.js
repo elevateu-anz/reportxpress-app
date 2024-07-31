@@ -1,21 +1,16 @@
 // src/components/Footer.js
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const Footer = () => {
-  return (
-    <footer className="text-center py-4 mt-auto" style={{ backgroundColor: '#92C7CF' }}>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <a href="#home" className="text-dark">Home</a>
-          </div>
-          <div className="col">
-            <a href="#contactus" className="text-dark">Contact Us</a>
-          </div>
-          <div className="col">
-            <a href="#about" className="text-dark">About</a>
-          </div>
-        </div>
+return(
+    <footer className="footer mt-auto py-3" style={{ backgroundColor: '#92C7CF' }}>
+      <div className="container text-center">
+        <span className="text-white">
+          <a href="/team" target="_blank" rel="noopener noreferrer" className="text-white mx-3">Team</a>
+          <a href="/about" target="_blank" rel="noopener noreferrer" className="text-white mx-3">About Project</a>
+          <a href="/contactus" target="_blank" rel="noopener noreferrer" className="text-white mx-3">Contact Us</a>
+        </span>
       </div>
     </footer>
   );

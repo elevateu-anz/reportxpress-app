@@ -7,6 +7,11 @@ import { utils, writeFile } from 'xlsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as XLSX from 'xlsx';
 import autoTable from 'jspdf-autotable';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import ContactUs from './components/ContactUs';
+import Team from './components/Team';
 
 
 const App = () => {
@@ -102,7 +107,7 @@ const App = () => {
     <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: '#AAD7D9' }}>
       <div class="top-strip">
             <h1 class="stylish-heading">ReportXpress</h1>
-            <p class='sub-heading'>Intelligent Self Service Resporting Tool</p>
+            <p class='sub-heading'>Intelligent Self Service Reporting Tool</p>
        </div>
       <div className="container text-center py-5">
         <UserInputForm
@@ -118,6 +123,13 @@ const App = () => {
           </div>
         )}
       </div>
+      <Router>
+        <Routes>
+          <Route path="/about" element={<About />} />
+          <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/team" element={<Team />} />
+        </Routes>
+    </Router>
       <Footer />
     </div>
   );
