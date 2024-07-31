@@ -17,7 +17,7 @@ const teamMembers = [
   },
   {
     name: 'Arun Gautam',
-    photo: '',
+    photo: '/images/Arun.jpg',
   },
     {
       name: 'Murali Javvadi ',
@@ -25,7 +25,7 @@ const teamMembers = [
     },
      {
        name: 'Raghavendra M S',
-       photo: '',
+       photo: '/images/Raghav.jpg',
      },
 ];
 
