@@ -8,7 +8,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as XLSX from 'xlsx';
 import autoTable from 'jspdf-autotable';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
 import About from './components/About';
 import ContactUs from './components/ContactUs';
 import Team from './components/Team';
