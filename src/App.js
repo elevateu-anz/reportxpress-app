@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 import UserInputForm from './components/UserInputForm';
 import Footer from './components/Footer';
 import jsPDF from 'jspdf';
-import { utils, writeFile } from 'xlsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as XLSX from 'xlsx';
 import autoTable from 'jspdf-autotable';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import About from './components/About';
 import ContactUs from './components/ContactUs';
 import Team from './components/Team';
@@ -122,13 +121,13 @@ const App = () => {
           </div>
         )}
       </div>
-      <Router>
+      {/* <Router>
         <Routes>
           <Route path="/about" element={<About />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/team" element={<Team />} />
         </Routes>
-    </Router>
+      </Router> */}
       <Footer />
     </div>
   );
