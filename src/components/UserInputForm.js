@@ -1,7 +1,7 @@
 // src/components/UserInputForm.js
 import React, { useState } from 'react';
 
-const UserInputForm = ({ onGenerate, onPreview, onExportPDF, onExportExcel }) => {
+const UserInputForm = ({ onGenerate, onReset, onPreview, onExportPDF, onExportExcel }) => {
   const [inputData, setInputData] = useState('');
 
   const handleSubmit = (e) => {
@@ -15,7 +15,7 @@ const UserInputForm = ({ onGenerate, onPreview, onExportPDF, onExportExcel }) =>
         <div className="form-group">
           <label class="lable-text">Simply describe your needs in your own words, and we'll create customized reports for you as requested</label>
           <div class="text-box-wrapper">
-          <textarea class="text-area" placeholder="Start writing your requirements..." 
+          <textarea id="txt_input" class="text-area" placeholder="Start writing your requirements..." 
           value={inputData}
           onChange={(e) => setInputData(e.target.value)}></textarea>
           <button type="submit" class="right-arrow-btn">&#9654;</button>
@@ -23,6 +23,11 @@ const UserInputForm = ({ onGenerate, onPreview, onExportPDF, onExportExcel }) =>
         </div>
       </form>
       <div className="d-flex justify-content-center mb-4">
+      <div className="button-seperator">
+      <button id="btn_reset" class="reset-button" onClick={onReset}>
+       <i class="icon">🔄</i> Reset
+       </button>
+       </div>
       <div className="button-seperator">
       <button id="btn_preview" class="preview-button" onClick={onPreview}>
        <i class="icon">👁️</i> Preview

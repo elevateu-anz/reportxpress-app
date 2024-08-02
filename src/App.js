@@ -16,8 +16,56 @@ const App = () => {
   const [report, setReport] = useState(null);
   var jsonData={};
 
+  document.addEventListener('DOMContentLoaded', () => {
+    const textbox =  document.getElementById('txt_input');
+    const resetButton = document.getElementById('btn_reset');
+
+    const btn_preview = document.getElementById('btn_preview');
+    const btn_pdf = document.getElementById('btn_pdf');
+    const btn_xls = document.getElementById('btn_xls');
+
+    btn_preview.style.visibility='hidden';
+    btn_pdf.style.visibility='hidden';
+    btn_xls.style.visibility='hidden';
+
+    const toggleResetButton = () => {
+        if(textbox.value.trim() === '' && btn_preview.style.visibility=='hidden' && btn_pdf.style.visibility=='hidden' && btn_xls.style.visibility=='hidden'){
+            resetButton.style.visibility='hidden'; 
+          }
+          else{
+            resetButton.style.visibility='visible'; 
+          }
+    };
+
+    toggleResetButton();
+    textbox.addEventListener('input', toggleResetButton);
+  });
+
   const generateReport = async (inputData) => {
-      console.log(inputData);
+      if(inputData.trim() === ''){
+        const requirePopup = document.getElementById('requirePopup');
+        requirePopup.style.display = 'block';
+        const closeBtn = document.querySelector('.require-close-btn');
+      
+        closeBtn.addEventListener('click', () => {
+          requirePopup.style.display = 'none';
+        });
+      
+        window.addEventListener('click', (event) => {
+          if (event.target === requirePopup) {
+            requirePopup.style.display = 'none';
+          }
+        });
+        jsonData={};
+        const btn_preview = document.getElementById('btn_preview');
+        const btn_pdf = document.getElementById('btn_pdf');
+        const btn_xls = document.getElementById('btn_xls');
+
+        btn_preview.style.visibility='hidden';
+        btn_pdf.style.visibility='hidden';
+        btn_xls.style.visibility='hidden';
+      }
+      else{
       const response = await fetch('https://elevatu.pythonanywhere.com/?input=' + inputData)
       .then(response => {
         if (!response.ok) {
@@ -49,13 +97,20 @@ const App = () => {
               errorPopup.style.display = 'none';
           }
         });
+        jsonData={};
+        const btn_preview = document.getElementById('btn_preview');
+        const btn_pdf = document.getElementById('btn_pdf');
+        const btn_xls = document.getElementById('btn_xls');
+
+        btn_preview.style.visibility='hidden';
+        btn_pdf.style.visibility='hidden';
+        btn_xls.style.visibility='hidden';
 
         errorPopup.style.display = 'block';
         console.error('The details provided appear to be insufficient for generating the requested report. Please consider rephrasing your request.', error);
       });
+    }
   };
-
-
 
   const previewReport = () => {
     const doc = new jsPDF();
@@ -117,6 +172,20 @@ const App = () => {
     XLSX.writeFile(wb, 'report' + formattedDate + '.xlsx');
   };
 
+  const resetRequest = () => {
+    const btn_preview = document.getElementById('btn_preview');
+    const btn_pdf = document.getElementById('btn_pdf');
+    const btn_xls = document.getElementById('btn_xls');
+    const txt_input = document.getElementById('txt_input');
+    const btn_reset = document.getElementById('btn_reset');
+    btn_preview.style.visibility='hidden';
+    btn_pdf.style.visibility='hidden';
+    btn_xls.style.visibility='hidden';
+    btn_reset.style.visibility='hidden'; 
+    txt_input.value='';
+    jsonData={};
+  };
+
   return (
     <div className="d-flex flex-column min-vh-100" style={{ backgroundColor: '#AAD7D9' }}>
       <div class="top-strip">
@@ -126,6 +195,7 @@ const App = () => {
       <div className="container text-center py-5">
         <UserInputForm
           onGenerate={generateReport}
+          onReset={resetRequest}
           onPreview={previewReport}
           onExportPDF={exportAsPDF}
           onExportExcel={exportAsExcel}
@@ -144,6 +214,15 @@ const App = () => {
             <p id="errorMessage">The details provided appear to be insufficient for generating the requested report. Please consider rephrasing your request!</p>
         </div>
        </div>
+
+       <div id="requirePopup" class="popup">
+        <div class="popup-content">
+            <span class="require-close-btn">&times;</span>
+            <h4>User Input Required</h4>
+            <p id="errorMessage">Provide your requirements for generating the report</p>
+        </div>
+       </div>
+
 
       {/* <Router>
         <Routes>

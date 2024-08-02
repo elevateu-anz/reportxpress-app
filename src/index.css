@@ -191,6 +191,44 @@ button:hover {
   box-shadow: 0 0 0 2px #2b9e2b;
 }
 
+
+.reset-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #a5b5c5;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  visibility: hidden;
+}
+
+.reset-button:hover {
+  background-color: #b4bcc5;
+}
+
+.reset-button:active {
+  transform: scale(0.98);
+}
+
+.reset-button .icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.reset-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #838d97;
+}
+
+
 .preview-button {
   display: inline-flex;
   align-items: center;
@@ -252,6 +290,15 @@ button:hover {
 }
 
 .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #721c24;
+}
+
+.require-close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
