@@ -37,9 +37,25 @@ const App = () => {
         btn_xls.style.visibility='visible';
       })
       .catch(error => {
-        console.error('There was a problem in generating report.', error);
+        const errorPopup = document.getElementById('errorPopup');
+        const closeBtn = document.querySelector('.close-btn');
+      
+        closeBtn.addEventListener('click', () => {
+          errorPopup.style.display = 'none';
+        });
+      
+        window.addEventListener('click', (event) => {
+          if (event.target === errorPopup) {
+              errorPopup.style.display = 'none';
+          }
+        });
+
+        errorPopup.style.display = 'block';
+        console.error('The details provided appear to be insufficient for generating the requested report. Please consider rephrasing your request.', error);
       });
   };
+
+
 
   const previewReport = () => {
     const doc = new jsPDF();
@@ -121,6 +137,14 @@ const App = () => {
           </div>
         )}
       </div>
+      <div id="errorPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h4>Rephrase Your Requirement</h4>
+            <p id="errorMessage">The details provided appear to be insufficient for generating the requested report. Please consider rephrasing your request!</p>
+        </div>
+       </div>
+
       {/* <Router>
         <Routes>
           <Route path="/about" element={<About />} />
